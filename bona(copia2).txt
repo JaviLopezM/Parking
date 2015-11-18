@@ -1,0 +1,4 @@
+Xavi,López,Cotxe,1234-ABC,Seat,Toledo,Gris,01
+Alex,Bonavila,Cotxe,7894-DFG,Ford,Escort,Gris,02
+Daniel,Dolz,moto,9638-PIO,Honda,CBR,Blau,03
+Miquel,Granell,Moto,1234-TGV,Suzuki,Trancos,Taronja,03
