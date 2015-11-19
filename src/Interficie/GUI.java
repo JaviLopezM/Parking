@@ -1,7 +1,9 @@
 // Error reading included file Templates/GUIForms/Templates/Licenses/license-default.txt
 package Interficie;
 
-import classes.Xml;
+
+import classes.*;
+import javax.swing.JOptionPane;
 
 
 
@@ -60,8 +62,10 @@ public class GUI extends javax.swing.JFrame {
         jTextField_plaça = new javax.swing.JTextField();
         jTextField_matricula = new javax.swing.JTextField();
         jLabel_cognom1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox_tipus = new javax.swing.JComboBox();
+        jComboBox_marca = new javax.swing.JComboBox();
+        jLabel_plasa1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,29 +144,10 @@ public class GUI extends javax.swing.JFrame {
         panel_mostrar.setPreferredSize(new java.awt.Dimension(710, 400));
         panel_mostrar.setLayout(null);
 
-        jTable_mostrar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nom", "Cognom", "Tipus", "Matrícula", "Marca", "Model", "Color", "Plaça"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(jTable_mostrar);
 
         panel_mostrar.add(jScrollPane1);
-        jScrollPane1.setBounds(130, 60, 453, 229);
+        jScrollPane1.setBounds(40, 20, 453, 229);
 
         jLayeredPane.add(panel_mostrar, "card3");
 
@@ -189,9 +174,9 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jLabel_color);
         jLabel_color.setBounds(100, 240, 42, 15);
 
-        jLabel_plasa.setText("Plaça:");
+        jLabel_plasa.setText("Hora entrada:");
         panel_afegir.add(jLabel_plasa);
-        jLabel_plasa.setBounds(270, 240, 43, 15);
+        jLabel_plasa.setBounds(100, 310, 120, 30);
 
         jLabel_matricula.setText("Matrícula:");
         panel_afegir.add(jLabel_matricula);
@@ -229,6 +214,7 @@ public class GUI extends javax.swing.JFrame {
         jTextField_color.setBounds(100, 260, 118, 30);
 
         jTextField_plaça.setText("Auto");
+        jTextField_plaça.setEnabled(false);
         jTextField_plaça.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_plaçaActionPerformed(evt);
@@ -250,23 +236,41 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jLabel_cognom1);
         jLabel_cognom1.setBounds(270, 70, 62, 15);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cotxe", "Moto" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_tipus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Cotxe", "Moto" }));
+        jComboBox_tipus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBox_tipusActionPerformed(evt);
             }
         });
-        panel_afegir.add(jComboBox1);
-        jComboBox1.setBounds(100, 170, 71, 30);
+        panel_afegir.add(jComboBox_tipus);
+        jComboBox_tipus.setBounds(100, 170, 71, 30);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_marca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
+        jComboBox_marca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                jComboBox_marcaActionPerformed(evt);
             }
         });
-        panel_afegir.add(jComboBox2);
-        jComboBox2.setBounds(270, 170, 110, 24);
+        panel_afegir.add(jComboBox_marca);
+        jComboBox_marca.setBounds(270, 170, 110, 24);
+
+        jLabel_plasa1.setText("Plaça:");
+        panel_afegir.add(jLabel_plasa1);
+        jLabel_plasa1.setBounds(270, 240, 43, 15);
+
+        jButton2.setText("Afegir");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        panel_afegir.add(jButton2);
+        jButton2.setBounds(100, 370, 94, 25);
 
         jLayeredPane.add(panel_afegir, "card4");
 
@@ -278,6 +282,8 @@ private void inici(){
         panel_inici.setVisible(true);
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
+        InOut.llegir("vehicles.dat");
+        jTable_mostrar =
 }
     private void jButton_iniciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iniciActionPerformed
 
@@ -336,13 +342,13 @@ private void inici(){
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_matriculaActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBox_tipusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tipusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBox_tipusActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void jComboBox_marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_marcaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_jComboBox_marcaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -353,6 +359,35 @@ private void inici(){
         Xml.xml();
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+                                              
+
+        
+        Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), jTextField_plaça.getText(), jTextField_matricula.getText()));
+        
+        InOut.escriure("vehicles.dat");
+        
+            JOptionPane.showMessageDialog(this, "Vehicle afegit correctament.");
+            //Resetejem els camps de text.
+            jTextField_nom.setText("");
+            jTextField_cognom.setText("");
+            jComboBox_tipus.setSelectedIndex(0);
+            jComboBox_marca.setSelectedIndex(0);
+            jTextField_model.setText("");
+            jTextField_color.setText("");
+            jTextField_plaça.setText("");
+            jTextField_matricula.setText("");
+
+        
+
+                                         
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -392,12 +427,13 @@ private void inici(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Entrada_Surtida;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_afegir;
     private javax.swing.JButton jButton_inici;
     private javax.swing.JButton jButton_modificar;
     private javax.swing.JButton jButton_mostrar;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox_marca;
+    private javax.swing.JComboBox jComboBox_tipus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_cognom1;
     private javax.swing.JLabel jLabel_color;
@@ -406,6 +442,7 @@ private void inici(){
     private javax.swing.JLabel jLabel_model;
     private javax.swing.JLabel jLabel_nom1;
     private javax.swing.JLabel jLabel_plasa;
+    private javax.swing.JLabel jLabel_plasa1;
     private javax.swing.JLabel jLabel_tipus;
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanel_menu;
