@@ -18,17 +18,19 @@ public class InOut implements java.io.Serializable {
 
     public static void llegir(String s){
        try{
-        File arxiu= new File("vehicles.dat");
+        File arxiu= new File(s);
         if (arxiu.exists()){
             ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(arxiu));
             int i=0;
+            Principal.arrayParking.clear();
             while(true)
             {
                 try{
                     Principal.arrayParking.add((Vehicle)entrada.readObject());
-                    i++;
+                    System.out.println("vehicle llegit");
                 }
                 catch(Exception ex){
+                    System.out.println("vehicle tancat");
                     break;
                 }
             }
@@ -42,29 +44,28 @@ public class InOut implements java.io.Serializable {
        
 }
 public static void escriure(String s){
-    File arxiu= new File("vehicles.dat");
+    File arxiu= new File(s);
     ObjectOutputStream surtida=null;
         try {
-            surtida = new ObjectOutputStream(new FileOutputStream("vehicles.dat"));
+            surtida = new ObjectOutputStream(new FileOutputStream(arxiu));
         } catch (IOException ex) {
-            JOptionPane.showInputDialog("Error al crear l'arxiu d'emmagatzematge.");
-           //JOptionPane.showMessageDialog(this, "Vehicle afegit correctament.");
-            //Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
+            //JOptionPane.showInputDialog("Error al crear l'arxiu d'emmagatzematge.");
+            JOptionPane.showMessageDialog(null, "Error al guardar l'arxiu   1");
         } 
     for(int i=0;i<Principal.arrayParking.size();i++)
     {
         try {
             surtida.writeObject(Principal.arrayParking.get(i));
-        }
-        catch(Exception ex){
-            //JOptionPane.showMessageDialog(Error al guardar l'arxiu");
+        } catch (IOException ex) {
+            Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
             break;
         }
+       
     }
     if(surtida!=null) try {
         surtida.close();
     } catch (IOException ex) {
-        //JOptionPane.showInputDialog("Error al guardar l'arxiu");
+      JOptionPane.showMessageDialog(null, "Error al tancar l'arxiu.");
         //Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
     }
     

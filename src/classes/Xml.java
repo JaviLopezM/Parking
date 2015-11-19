@@ -2,6 +2,9 @@ package classes;
 
 
 import java.io.File;
+import static java.lang.Integer.toString;
+import static java.util.Arrays.toString;
+import static java.util.Arrays.toString;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -83,7 +86,7 @@ public static void xml() {
 
 			// plaça elements
 			Element plasa = doc.createElement("Plaça");
-			plasa.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getPlasa()));
+			plasa.appendChild(doc.createTextNode(Integer.toString(Principal.arrayParking.get(i).getPlasa())));
 			vehicle.appendChild(plasa);
 
 			}

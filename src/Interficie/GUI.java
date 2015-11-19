@@ -2,8 +2,25 @@
 package Interficie;
 
 
+import java.util.Calendar;
 import classes.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
+
 
 
 
@@ -15,6 +32,7 @@ import javax.swing.JOptionPane;
 
 public class GUI extends javax.swing.JFrame {
    Xml XML =new Xml();
+   int plaça;
 
     /**
      * Creates new form GUI
@@ -36,15 +54,15 @@ public class GUI extends javax.swing.JFrame {
         jPanel_menu = new javax.swing.JPanel();
         jButton_inici = new javax.swing.JButton();
         jButton_afegir = new javax.swing.JButton();
-        jButton_mostrar = new javax.swing.JButton();
-        jButton_modificar = new javax.swing.JButton();
         Entrada_Surtida = new javax.swing.JButton();
+        jButton_mostrar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton_tanca = new javax.swing.JButton();
         jLayeredPane = new javax.swing.JLayeredPane();
         panel_inici = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panel_mostrar = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTable_mostrar = new javax.swing.JTable();
         panel_afegir = new javax.swing.JPanel();
         panel_afegir.setBounds(0, 0, 600, 600);
@@ -60,12 +78,35 @@ public class GUI extends javax.swing.JFrame {
         jTextField_model = new javax.swing.JTextField();
         jTextField_color = new javax.swing.JTextField();
         jTextField_plaça = new javax.swing.JTextField();
-        jTextField_matricula = new javax.swing.JTextField();
+        jTextField_hora = new javax.swing.JTextField();
         jLabel_cognom1 = new javax.swing.JLabel();
         jComboBox_tipus = new javax.swing.JComboBox();
         jComboBox_marca = new javax.swing.JComboBox();
         jLabel_plasa1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel_plasa2 = new javax.swing.JLabel();
+        jTextField_matricula = new javax.swing.JTextField();
+        jTextField_preu = new javax.swing.JTextField();
+        panel_sortida = new javax.swing.JPanel();
+        panel_afegir.setBounds(0, 0, 600, 600);
+        jLabel_marca1 = new javax.swing.JLabel();
+        jLabel_model1 = new javax.swing.JLabel();
+        jLabel_color1 = new javax.swing.JLabel();
+        jLabel_plasa3 = new javax.swing.JLabel();
+        jLabel_matricula1 = new javax.swing.JLabel();
+        jTextField_marcaSortida = new javax.swing.JTextField();
+        jTextField_modelSortida = new javax.swing.JTextField();
+        jTextField_horaEntrada = new javax.swing.JTextField();
+        jComboBox_matriculaSortida = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel_plasa5 = new javax.swing.JLabel();
+        jTextField_pagar = new javax.swing.JTextField();
+        jTextField_preuSortida = new javax.swing.JTextField();
+        jLabel_plasa6 = new javax.swing.JLabel();
+        jTextField_horaSortida = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,7 +124,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel_menu.add(jButton_inici);
 
-        jButton_afegir.setText("Afegir");
+        jButton_afegir.setText("Entrada");
         jButton_afegir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_afegirMouseClicked(evt);
@@ -95,6 +136,9 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel_menu.add(jButton_afegir);
+
+        Entrada_Surtida.setText("Sortida");
+        jPanel_menu.add(Entrada_Surtida);
 
         jButton_mostrar.setText("Mostrar");
         jButton_mostrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,12 +153,6 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel_menu.add(jButton_mostrar);
 
-        jButton_modificar.setText("Modificar");
-        jPanel_menu.add(jButton_modificar);
-
-        Entrada_Surtida.setText("Entrada / Surtida");
-        jPanel_menu.add(Entrada_Surtida);
-
         jButton1.setText("Documentació XML");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,6 +165,19 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel_menu.add(jButton1);
+
+        jButton_tanca.setText("Tanca");
+        jButton_tanca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_tancaMouseClicked(evt);
+            }
+        });
+        jButton_tanca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_tancaActionPerformed(evt);
+            }
+        });
+        jPanel_menu.add(jButton_tanca);
 
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
 
@@ -142,12 +193,37 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPane.add(panel_inici, "card2");
 
         panel_mostrar.setPreferredSize(new java.awt.Dimension(710, 400));
+        panel_mostrar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                panel_mostrarFocusGained(evt);
+            }
+        });
         panel_mostrar.setLayout(null);
 
-        jScrollPane1.setViewportView(jTable_mostrar);
+        jTable_mostrar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nom", "Cognoms", "Tipus", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Sortida"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
 
-        panel_mostrar.add(jScrollPane1);
-        jScrollPane1.setBounds(40, 20, 453, 229);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable_mostrar.setRowSelectionAllowed(false);
+        jScrollPane2.setViewportView(jTable_mostrar);
+
+        panel_mostrar.add(jScrollPane2);
+        jScrollPane2.setBounds(30, 20, 630, 340);
 
         jLayeredPane.add(panel_mostrar, "card3");
 
@@ -156,35 +232,35 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel_nom1.setText("Nom:");
         panel_afegir.add(jLabel_nom1);
-        jLabel_nom1.setBounds(100, 60, 80, 20);
+        jLabel_nom1.setBounds(80, 60, 80, 20);
 
         jLabel_tipus.setText("Tipus de vehicle:");
         panel_afegir.add(jLabel_tipus);
-        jLabel_tipus.setBounds(100, 150, 118, 15);
+        jLabel_tipus.setBounds(80, 150, 118, 15);
 
         jLabel_marca.setText("Marca:");
         panel_afegir.add(jLabel_marca);
-        jLabel_marca.setBounds(270, 150, 48, 15);
+        jLabel_marca.setBounds(250, 150, 48, 15);
 
         jLabel_model.setText("Model:");
         panel_afegir.add(jLabel_model);
-        jLabel_model.setBounds(400, 150, 48, 15);
+        jLabel_model.setBounds(380, 150, 48, 15);
 
         jLabel_color.setText("Color:");
         panel_afegir.add(jLabel_color);
-        jLabel_color.setBounds(100, 240, 42, 15);
+        jLabel_color.setBounds(80, 240, 42, 15);
 
-        jLabel_plasa.setText("Hora entrada:");
+        jLabel_plasa.setText("Preu/hora");
         panel_afegir.add(jLabel_plasa);
-        jLabel_plasa.setBounds(100, 310, 120, 30);
+        jLabel_plasa.setBounds(250, 310, 120, 30);
 
         jLabel_matricula.setText("Matrícula:");
         panel_afegir.add(jLabel_matricula);
-        jLabel_matricula.setBounds(400, 240, 71, 15);
+        jLabel_matricula.setBounds(380, 240, 71, 15);
 
         jTextField_nom.setText("Nom...");
         panel_afegir.add(jTextField_nom);
-        jTextField_nom.setBounds(100, 90, 120, 30);
+        jTextField_nom.setBounds(80, 90, 120, 30);
 
         jTextField_cognom.setText("Cognoms...");
         jTextField_cognom.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +269,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jTextField_cognom);
-        jTextField_cognom.setBounds(270, 90, 291, 30);
+        jTextField_cognom.setBounds(250, 90, 291, 30);
 
         jTextField_model.setText("Model");
         jTextField_model.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +278,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jTextField_model);
-        jTextField_model.setBounds(400, 170, 166, 30);
+        jTextField_model.setBounds(380, 170, 166, 30);
 
         jTextField_color.setText("Negre, blau...");
         jTextField_color.addActionListener(new java.awt.event.ActionListener() {
@@ -211,9 +287,9 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jTextField_color);
-        jTextField_color.setBounds(100, 260, 118, 30);
+        jTextField_color.setBounds(80, 260, 118, 30);
 
-        jTextField_plaça.setText("Auto");
+        jTextField_plaça.setToolTipText("");
         jTextField_plaça.setEnabled(false);
         jTextField_plaça.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,20 +297,19 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jTextField_plaça);
-        jTextField_plaça.setBounds(270, 260, 98, 30);
+        jTextField_plaça.setBounds(250, 260, 98, 30);
 
-        jTextField_matricula.setText("XXXX-XXX");
-        jTextField_matricula.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_hora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_matriculaActionPerformed(evt);
+                jTextField_horaActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_matricula);
-        jTextField_matricula.setBounds(400, 260, 166, 30);
+        panel_afegir.add(jTextField_hora);
+        jTextField_hora.setBounds(80, 350, 100, 30);
 
         jLabel_cognom1.setText("Cognom:");
         panel_afegir.add(jLabel_cognom1);
-        jLabel_cognom1.setBounds(270, 70, 62, 15);
+        jLabel_cognom1.setBounds(250, 70, 62, 15);
 
         jComboBox_tipus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Cotxe", "Moto" }));
         jComboBox_tipus.addActionListener(new java.awt.event.ActionListener() {
@@ -243,7 +318,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jComboBox_tipus);
-        jComboBox_tipus.setBounds(100, 170, 71, 30);
+        jComboBox_tipus.setBounds(80, 170, 71, 30);
 
         jComboBox_marca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
         jComboBox_marca.addActionListener(new java.awt.event.ActionListener() {
@@ -252,11 +327,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jComboBox_marca);
-        jComboBox_marca.setBounds(270, 170, 110, 24);
+        jComboBox_marca.setBounds(250, 170, 110, 24);
 
         jLabel_plasa1.setText("Plaça:");
         panel_afegir.add(jLabel_plasa1);
-        jLabel_plasa1.setBounds(270, 240, 43, 15);
+        jLabel_plasa1.setBounds(250, 240, 43, 15);
 
         jButton2.setText("Afegir");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -270,9 +345,155 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         panel_afegir.add(jButton2);
-        jButton2.setBounds(100, 370, 94, 25);
+        jButton2.setBounds(80, 410, 94, 25);
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel2.setText("ENTRADA DE VEHICLE AL PARKING");
+        jLabel2.setPreferredSize(new java.awt.Dimension(230, 18));
+        jLabel2.setRequestFocusEnabled(false);
+        panel_afegir.add(jLabel2);
+        jLabel2.setBounds(70, 20, 490, 30);
+
+        jLabel_plasa2.setText("Hora entrada:");
+        panel_afegir.add(jLabel_plasa2);
+        jLabel_plasa2.setBounds(80, 310, 120, 30);
+
+        jTextField_matricula.setText("XXXX-XXX");
+        jTextField_matricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_matriculaActionPerformed(evt);
+            }
+        });
+        panel_afegir.add(jTextField_matricula);
+        jTextField_matricula.setBounds(380, 260, 166, 30);
+
+        jTextField_preu.setText("2");
+        jTextField_preu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_preuActionPerformed(evt);
+            }
+        });
+        panel_afegir.add(jTextField_preu);
+        jTextField_preu.setBounds(250, 350, 100, 30);
 
         jLayeredPane.add(panel_afegir, "card4");
+
+        panel_sortida.setPreferredSize(new java.awt.Dimension(710, 400));
+        panel_sortida.setLayout(null);
+
+        jLabel_marca1.setText("Matricula:");
+        panel_sortida.add(jLabel_marca1);
+        jLabel_marca1.setBounds(60, 80, 100, 15);
+
+        jLabel_model1.setText("Marca:");
+        panel_sortida.add(jLabel_model1);
+        jLabel_model1.setBounds(230, 80, 100, 15);
+
+        jLabel_color1.setText("Model:");
+        panel_sortida.add(jLabel_color1);
+        jLabel_color1.setBounds(450, 80, 70, 15);
+
+        jLabel_plasa3.setText("Preu/hora:");
+        panel_sortida.add(jLabel_plasa3);
+        jLabel_plasa3.setBounds(410, 170, 120, 30);
+
+        jLabel_matricula1.setText("Total a Pagar:");
+        panel_sortida.add(jLabel_matricula1);
+        jLabel_matricula1.setBounds(380, 300, 130, 15);
+
+        jTextField_marcaSortida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_marcaSortidaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_marcaSortida);
+        jTextField_marcaSortida.setBounds(230, 100, 166, 30);
+
+        jTextField_modelSortida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_modelSortidaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_modelSortida);
+        jTextField_modelSortida.setBounds(450, 100, 118, 30);
+
+        jTextField_horaEntrada.setEditable(false);
+        jTextField_horaEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_horaEntradaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_horaEntrada);
+        jTextField_horaEntrada.setBounds(60, 210, 100, 30);
+
+        jComboBox_matriculaSortida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
+        jComboBox_matriculaSortida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_matriculaSortidaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jComboBox_matriculaSortida);
+        jComboBox_matriculaSortida.setBounds(60, 100, 110, 24);
+
+        jButton3.setText("Pagat");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jButton3);
+        jButton3.setBounds(50, 370, 94, 25);
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel3.setText("SORTIDA DEL PARKING");
+        jLabel3.setPreferredSize(new java.awt.Dimension(230, 18));
+        jLabel3.setRequestFocusEnabled(false);
+        panel_sortida.add(jLabel3);
+        jLabel3.setBounds(60, 30, 380, 18);
+
+        jLabel_plasa5.setText("Hora entrada:");
+        panel_sortida.add(jLabel_plasa5);
+        jLabel_plasa5.setBounds(60, 170, 120, 30);
+
+        jTextField_pagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_pagarActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_pagar);
+        jTextField_pagar.setBounds(380, 320, 166, 30);
+
+        jTextField_preuSortida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_preuSortidaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_preuSortida);
+        jTextField_preuSortida.setBounds(410, 210, 100, 30);
+
+        jLabel_plasa6.setText("Hora sortida:");
+        panel_sortida.add(jLabel_plasa6);
+        jLabel_plasa6.setBounds(230, 170, 120, 30);
+
+        jTextField_horaSortida.setEditable(false);
+        jTextField_horaSortida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_horaSortidaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_horaSortida);
+        jTextField_horaSortida.setBounds(230, 210, 100, 30);
+
+        jButton4.setText("Calcular");
+        panel_sortida.add(jButton4);
+        jButton4.setBounds(50, 310, 94, 25);
+
+        jLayeredPane.add(panel_sortida, "card4");
 
         getContentPane().add(jLayeredPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 670, 450));
 
@@ -283,8 +504,14 @@ private void inici(){
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
         InOut.llegir("vehicles.dat");
-        jTable_mostrar =
+        Calendar fecha = Calendar.getInstance();
+
+
+       
+        
 }
+        
+   
     private void jButton_iniciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_iniciActionPerformed
 
     }//GEN-LAST:event_jButton_iniciActionPerformed
@@ -307,6 +534,11 @@ private void inici(){
 
     private void jButton_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mostrarActionPerformed
         // TODO add your handling code here:
+        System.out.println("hola");
+        ModelTaula<Vehicle> mt = new ModelTaula(new String[]{"Nom", "Cognoms", "Tipus", 
+            "Matrícuña", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Surtida"}, Principal.arrayParking);
+       
+        jTable_mostrar.setModel(mt);
     }//GEN-LAST:event_jButton_mostrarActionPerformed
 
     private void jButton_mostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_mostrarMouseClicked
@@ -336,11 +568,12 @@ private void inici(){
 
     private void jTextField_plaçaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_plaçaActionPerformed
         // TODO add your handling code here:
+  
     }//GEN-LAST:event_jTextField_plaçaActionPerformed
 
-    private void jTextField_matriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_matriculaActionPerformed
+    private void jTextField_horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_horaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_matriculaActionPerformed
+    }//GEN-LAST:event_jTextField_horaActionPerformed
 
     private void jComboBox_tipusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tipusActionPerformed
         // TODO add your handling code here:
@@ -367,12 +600,29 @@ private void inici(){
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
                                               
-
+ //plaça
+                boolean control=false;
+                   for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
+                       Principal.arrayParking.get(i).getNom();
+         if (Principal.arrayParking.get(i).getNom().equals(null)){
+         plaça=i;
+         control=true;
+         }
+        }
+     if (plaça==0){
+     plaça=Principal.arrayParking.size()+1;
+     }
+  
+        //fi plaça        
         
-        Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), jTextField_plaça.getText(), jTextField_matricula.getText()));
+        Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jTextField_matricula.getText(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), 
+                //Integer.parseInt(jTextField_plaça.getText()),
+                (plaça),
+                Float.parseFloat(jTextField_preu.getText()), jTextField_hora.getText(), ("")));
         
-        InOut.escriure("vehicles.dat");
         
+                InOut.escriure("vehicles.dat");
+       
             JOptionPane.showMessageDialog(this, "Vehicle afegit correctament.");
             //Resetejem els camps de text.
             jTextField_nom.setText("");
@@ -382,12 +632,73 @@ private void inici(){
             jTextField_model.setText("");
             jTextField_color.setText("");
             jTextField_plaça.setText("");
+            jTextField_hora.setText("");
             jTextField_matricula.setText("");
 
         
 
                                          
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jTextField_matriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_matriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_matriculaActionPerformed
+
+    private void jTextField_preuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_preuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_preuActionPerformed
+
+    private void jButton_tancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_tancaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_tancaActionPerformed
+
+    private void jButton_tancaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_tancaMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton_tancaMouseClicked
+
+    private void jTextField_horaSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_horaSortidaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextField_horaSortidaActionPerformed
+
+    private void jTextField_preuSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_preuSortidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_preuSortidaActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jComboBox_matriculaSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_matriculaSortidaActionPerformed
+
+    private void jTextField_horaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_horaEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_horaEntradaActionPerformed
+
+    private void jTextField_modelSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_modelSortidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_modelSortidaActionPerformed
+
+    private void jTextField_marcaSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_marcaSortidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_marcaSortidaActionPerformed
+
+    private void jTextField_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_pagarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_pagarActionPerformed
+
+    private void panel_mostrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panel_mostrarFocusGained
+        // TODO add your handling code here:
+        System.out.println("Hola");
+         
+    }//GEN-LAST:event_panel_mostrarFocusGained
 
     /**
      * @param args the command line arguments
@@ -428,34 +739,126 @@ private void inici(){
     private javax.swing.JButton Entrada_Surtida;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_afegir;
     private javax.swing.JButton jButton_inici;
-    private javax.swing.JButton jButton_modificar;
     private javax.swing.JButton jButton_mostrar;
+    private javax.swing.JButton jButton_tanca;
     private javax.swing.JComboBox jComboBox_marca;
+    private javax.swing.JComboBox jComboBox_matriculaSortida;
     private javax.swing.JComboBox jComboBox_tipus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_cognom1;
     private javax.swing.JLabel jLabel_color;
+    private javax.swing.JLabel jLabel_color1;
     private javax.swing.JLabel jLabel_marca;
+    private javax.swing.JLabel jLabel_marca1;
     private javax.swing.JLabel jLabel_matricula;
+    private javax.swing.JLabel jLabel_matricula1;
     private javax.swing.JLabel jLabel_model;
+    private javax.swing.JLabel jLabel_model1;
     private javax.swing.JLabel jLabel_nom1;
     private javax.swing.JLabel jLabel_plasa;
     private javax.swing.JLabel jLabel_plasa1;
+    private javax.swing.JLabel jLabel_plasa2;
+    private javax.swing.JLabel jLabel_plasa3;
+    private javax.swing.JLabel jLabel_plasa5;
+    private javax.swing.JLabel jLabel_plasa6;
     private javax.swing.JLabel jLabel_tipus;
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_mostrar;
     private javax.swing.JTextField jTextField_cognom;
     private javax.swing.JTextField jTextField_color;
+    private javax.swing.JTextField jTextField_hora;
+    private javax.swing.JTextField jTextField_horaEntrada;
+    private javax.swing.JTextField jTextField_horaSortida;
+    private javax.swing.JTextField jTextField_marcaSortida;
     private javax.swing.JTextField jTextField_matricula;
     private javax.swing.JTextField jTextField_model;
+    private javax.swing.JTextField jTextField_modelSortida;
     private javax.swing.JTextField jTextField_nom;
+    private javax.swing.JTextField jTextField_pagar;
     private javax.swing.JTextField jTextField_plaça;
+    private javax.swing.JTextField jTextField_preu;
+    private javax.swing.JTextField jTextField_preuSortida;
     private javax.swing.JPanel panel_afegir;
     private javax.swing.JPanel panel_inici;
     private javax.swing.JPanel panel_mostrar;
+    private javax.swing.JPanel panel_sortida;
     // End of variables declaration//GEN-END:variables
+
+}
+
+
+class ModelTaula<T> extends AbstractTableModel {
+
+    private String[] columnNames;
+    private List<T> dades;
+
+    public ModelTaula(String[] nomColumnes, ArrayList<T> dades) {
+        this.columnNames = nomColumnes;
+        this.dades = dades;
+    }
+
+    //Necessari per a que mostre el nom de les columnes passat al crear l'objecte
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+    
+    //Necessari per a que mostre el número correcte de files de dades
+    @Override
+    public int getRowCount() {
+        int cont=0;
+        
+        if(dades!=null) cont=dades.size();
+        
+        return cont;
+    }
+
+    //Necessari per a que mostre el número correcte de columnes 
+    @Override
+    public int getColumnCount() {
+        
+        int cont=0;
+        
+        if(columnNames!=null) cont=columnNames.length;
+        
+        return cont;
+    }
+
+    //Necessari per a que mostre les dades passades al crear l'objecte
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+
+        Class<?> classe = dades.get(0).getClass();
+        //Anotem el nº de camps de la classe
+        int ncamps = classe.getDeclaredFields().length;
+
+        Method[] methods = new Method[ncamps];
+        int i = 0;
+        try {
+            for (PropertyDescriptor pD : Introspector.getBeanInfo(classe).getPropertyDescriptors()) {
+                Method m = pD.getReadMethod();
+                if (m != null & !m.getName().equals("getClass")) {
+                    methods[i++] = m;
+                }
+            }
+        } catch (java.beans.IntrospectionException ex) {
+            //Logger.getLogger(ModelTaula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            return methods[columnIndex].invoke(dades.get(rowIndex));
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(ModelTaula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
 }
