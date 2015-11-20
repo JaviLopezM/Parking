@@ -27,10 +27,10 @@ public class InOut implements java.io.Serializable {
             {
                 try{
                     Principal.arrayParking.add((Vehicle)entrada.readObject());
-                    System.out.println("vehicle llegit");
+                    
                 }
                 catch(Exception ex){
-                    System.out.println("vehicle tancat");
+                     
                     break;
                 }
             }
@@ -38,7 +38,7 @@ public class InOut implements java.io.Serializable {
         }
        }
        catch(Exception e){
-           System.out.println(e);
+           JOptionPane.showMessageDialog(null, "Error al llegir l'arxiu d'origen");
                
        }
        
@@ -68,7 +68,7 @@ public static void escriure(String s){
       JOptionPane.showMessageDialog(null, "Error al tancar l'arxiu.");
         //Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+                JOptionPane.showMessageDialog(null, "Vehicle afegit correctament.");
 }
 
     

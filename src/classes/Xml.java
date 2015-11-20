@@ -65,7 +65,7 @@ public static void xml() {
 			vehicle.appendChild(tipus);
 
 			// matricula elements
-			Element matricula = doc.createElement("Mtricula");
+			Element matricula = doc.createElement("Matrícula");
 			matricula.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getMatricula()));
 			vehicle.appendChild(matricula);
 

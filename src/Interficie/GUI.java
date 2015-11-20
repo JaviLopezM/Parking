@@ -10,6 +10,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
+import java.text.SimpleDateFormat;
 
 
 
@@ -111,6 +113,11 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel_menu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_menu.setMinimumSize(new java.awt.Dimension(700, 40));
+        jPanel_menu.setName(""); // NOI18N
+        jPanel_menu.setPreferredSize(new java.awt.Dimension(700, 40));
+
         jButton_inici.setText("Inici");
         jButton_inici.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -138,6 +145,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel_menu.add(jButton_afegir);
 
         Entrada_Surtida.setText("Sortida");
+        Entrada_Surtida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Entrada_SurtidaMouseClicked(evt);
+            }
+        });
+        Entrada_Surtida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Entrada_SurtidaActionPerformed(evt);
+            }
+        });
         jPanel_menu.add(Entrada_Surtida);
 
         jButton_mostrar.setText("Mostrar");
@@ -179,88 +196,131 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel_menu.add(jButton_tanca);
 
-        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
+        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
+        jLayeredPane.setMinimumSize(new java.awt.Dimension(980, 450));
+        jLayeredPane.setName(""); // NOI18N
+        jLayeredPane.setPreferredSize(new java.awt.Dimension(980, 450));
         jLayeredPane.setLayout(new java.awt.CardLayout());
 
-        panel_inici.setPreferredSize(new java.awt.Dimension(710, 400));
-        panel_inici.setLayout(null);
+        panel_inici.setPreferredSize(new java.awt.Dimension(950, 400));
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         jLabel1.setText("Parking XupiWay");
-        panel_inici.add(jLabel1);
-        jLabel1.setBounds(280, 170, 120, 15);
+        jLabel1.setAlignmentY(0.0F);
+
+        javax.swing.GroupLayout panel_iniciLayout = new javax.swing.GroupLayout(panel_inici);
+        panel_inici.setLayout(panel_iniciLayout);
+        panel_iniciLayout.setHorizontalGroup(
+            panel_iniciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_iniciLayout.createSequentialGroup()
+                .addGap(256, 256, 256)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_iniciLayout.setVerticalGroup(
+            panel_iniciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_iniciLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(193, 193, 193))
+        );
 
         jLayeredPane.add(panel_inici, "card2");
 
-        panel_mostrar.setPreferredSize(new java.awt.Dimension(710, 400));
+        panel_mostrar.setAutoscrolls(true);
+        panel_mostrar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        panel_mostrar.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        panel_mostrar.setMinimumSize(new java.awt.Dimension(985, 405));
+        panel_mostrar.setName(""); // NOI18N
+        panel_mostrar.setOpaque(false);
+        panel_mostrar.setPreferredSize(new java.awt.Dimension(950, 400));
         panel_mostrar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 panel_mostrarFocusGained(evt);
             }
         });
-        panel_mostrar.setLayout(null);
+
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(950, 400));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(950, 400));
 
         jTable_mostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nom", "Cognoms", "Tipus", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Sortida"
+                "Nom", "Cognoms", "Tipus", "Matrícula", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Sortida"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        jTable_mostrar.setMinimumSize(new java.awt.Dimension(900, 300));
+        jTable_mostrar.setName(""); // NOI18N
+        jTable_mostrar.setPreferredSize(new java.awt.Dimension(900, 300));
         jTable_mostrar.setRowSelectionAllowed(false);
         jScrollPane2.setViewportView(jTable_mostrar);
 
-        panel_mostrar.add(jScrollPane2);
-        jScrollPane2.setBounds(30, 20, 630, 340);
+        javax.swing.GroupLayout panel_mostrarLayout = new javax.swing.GroupLayout(panel_mostrar);
+        panel_mostrar.setLayout(panel_mostrarLayout);
+        panel_mostrarLayout.setHorizontalGroup(
+            panel_mostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_mostrarLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        panel_mostrarLayout.setVerticalGroup(
+            panel_mostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_mostrarLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jLayeredPane.add(panel_mostrar, "card3");
 
-        panel_afegir.setPreferredSize(new java.awt.Dimension(710, 400));
-        panel_afegir.setLayout(null);
+        panel_afegir.setMinimumSize(new java.awt.Dimension(950, 400));
+        panel_afegir.setPreferredSize(new java.awt.Dimension(950, 400));
+        panel_afegir.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel_nom1.setText("Nom:");
-        panel_afegir.add(jLabel_nom1);
-        jLabel_nom1.setBounds(80, 60, 80, 20);
+        jLabel_nom1.setText("Cognoms:");
+        panel_afegir.add(jLabel_nom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 80, 20));
 
         jLabel_tipus.setText("Tipus de vehicle:");
-        panel_afegir.add(jLabel_tipus);
-        jLabel_tipus.setBounds(80, 150, 118, 15);
+        panel_afegir.add(jLabel_tipus, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
 
         jLabel_marca.setText("Marca:");
-        panel_afegir.add(jLabel_marca);
-        jLabel_marca.setBounds(250, 150, 48, 15);
+        panel_afegir.add(jLabel_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, -1));
 
         jLabel_model.setText("Model:");
-        panel_afegir.add(jLabel_model);
-        jLabel_model.setBounds(380, 150, 48, 15);
+        panel_afegir.add(jLabel_model, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, -1, -1));
 
         jLabel_color.setText("Color:");
-        panel_afegir.add(jLabel_color);
-        jLabel_color.setBounds(80, 240, 42, 15);
+        panel_afegir.add(jLabel_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
 
         jLabel_plasa.setText("Preu/hora");
-        panel_afegir.add(jLabel_plasa);
-        jLabel_plasa.setBounds(250, 310, 120, 30);
+        panel_afegir.add(jLabel_plasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 310, 100, 30));
 
         jLabel_matricula.setText("Matrícula:");
-        panel_afegir.add(jLabel_matricula);
-        jLabel_matricula.setBounds(380, 240, 71, 15);
+        panel_afegir.add(jLabel_matricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, -1, -1));
 
         jTextField_nom.setText("Nom...");
-        panel_afegir.add(jTextField_nom);
-        jTextField_nom.setBounds(80, 90, 120, 30);
+        panel_afegir.add(jTextField_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 120, 30));
 
         jTextField_cognom.setText("Cognoms...");
         jTextField_cognom.addActionListener(new java.awt.event.ActionListener() {
@@ -268,8 +328,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_cognomActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_cognom);
-        jTextField_cognom.setBounds(250, 90, 291, 30);
+        panel_afegir.add(jTextField_cognom, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 150, 30));
 
         jTextField_model.setText("Model");
         jTextField_model.addActionListener(new java.awt.event.ActionListener() {
@@ -277,8 +336,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_modelActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_model);
-        jTextField_model.setBounds(380, 170, 166, 30);
+        panel_afegir.add(jTextField_model, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 166, 30));
 
         jTextField_color.setText("Negre, blau...");
         jTextField_color.addActionListener(new java.awt.event.ActionListener() {
@@ -286,8 +344,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_colorActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_color);
-        jTextField_color.setBounds(80, 260, 118, 30);
+        panel_afegir.add(jTextField_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 118, 30));
 
         jTextField_plaça.setToolTipText("");
         jTextField_plaça.setEnabled(false);
@@ -296,20 +353,18 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_plaçaActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_plaça);
-        jTextField_plaça.setBounds(250, 260, 98, 30);
+        panel_afegir.add(jTextField_plaça, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, 98, 30));
 
+        jTextField_hora.setEditable(false);
         jTextField_hora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_horaActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_hora);
-        jTextField_hora.setBounds(80, 350, 100, 30);
+        panel_afegir.add(jTextField_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, 130, 30));
 
-        jLabel_cognom1.setText("Cognom:");
-        panel_afegir.add(jLabel_cognom1);
-        jLabel_cognom1.setBounds(250, 70, 62, 15);
+        jLabel_cognom1.setText("Nom:");
+        panel_afegir.add(jLabel_cognom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
         jComboBox_tipus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Cotxe", "Moto" }));
         jComboBox_tipus.addActionListener(new java.awt.event.ActionListener() {
@@ -317,8 +372,7 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox_tipusActionPerformed(evt);
             }
         });
-        panel_afegir.add(jComboBox_tipus);
-        jComboBox_tipus.setBounds(80, 170, 71, 30);
+        panel_afegir.add(jComboBox_tipus, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 71, 30));
 
         jComboBox_marca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
         jComboBox_marca.addActionListener(new java.awt.event.ActionListener() {
@@ -326,12 +380,10 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox_marcaActionPerformed(evt);
             }
         });
-        panel_afegir.add(jComboBox_marca);
-        jComboBox_marca.setBounds(250, 170, 110, 24);
+        panel_afegir.add(jComboBox_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 110, -1));
 
         jLabel_plasa1.setText("Plaça:");
-        panel_afegir.add(jLabel_plasa1);
-        jLabel_plasa1.setBounds(250, 240, 43, 15);
+        panel_afegir.add(jLabel_plasa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
         jButton2.setText("Afegir");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -344,19 +396,16 @@ public class GUI extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        panel_afegir.add(jButton2);
-        jButton2.setBounds(80, 410, 94, 25);
+        panel_afegir.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 94, -1));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel2.setText("ENTRADA DE VEHICLE AL PARKING");
         jLabel2.setPreferredSize(new java.awt.Dimension(230, 18));
         jLabel2.setRequestFocusEnabled(false);
-        panel_afegir.add(jLabel2);
-        jLabel2.setBounds(70, 20, 490, 30);
+        panel_afegir.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 490, 30));
 
         jLabel_plasa2.setText("Hora entrada:");
-        panel_afegir.add(jLabel_plasa2);
-        jLabel_plasa2.setBounds(80, 310, 120, 30);
+        panel_afegir.add(jLabel_plasa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, 120, 20));
 
         jTextField_matricula.setText("XXXX-XXX");
         jTextField_matricula.addActionListener(new java.awt.event.ActionListener() {
@@ -364,8 +413,7 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_matriculaActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_matricula);
-        jTextField_matricula.setBounds(380, 260, 166, 30);
+        panel_afegir.add(jTextField_matricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 160, 30));
 
         jTextField_preu.setText("2");
         jTextField_preu.addActionListener(new java.awt.event.ActionListener() {
@@ -373,49 +421,34 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_preuActionPerformed(evt);
             }
         });
-        panel_afegir.add(jTextField_preu);
-        jTextField_preu.setBounds(250, 350, 100, 30);
+        panel_afegir.add(jTextField_preu, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, 100, 30));
 
         jLayeredPane.add(panel_afegir, "card4");
 
-        panel_sortida.setPreferredSize(new java.awt.Dimension(710, 400));
-        panel_sortida.setLayout(null);
+        panel_sortida.setMinimumSize(new java.awt.Dimension(950, 400));
+        panel_sortida.setPreferredSize(new java.awt.Dimension(950, 400));
 
         jLabel_marca1.setText("Matricula:");
-        panel_sortida.add(jLabel_marca1);
-        jLabel_marca1.setBounds(60, 80, 100, 15);
 
         jLabel_model1.setText("Marca:");
-        panel_sortida.add(jLabel_model1);
-        jLabel_model1.setBounds(230, 80, 100, 15);
 
         jLabel_color1.setText("Model:");
-        panel_sortida.add(jLabel_color1);
-        jLabel_color1.setBounds(450, 80, 70, 15);
 
         jLabel_plasa3.setText("Preu/hora:");
-        panel_sortida.add(jLabel_plasa3);
-        jLabel_plasa3.setBounds(410, 170, 120, 30);
 
         jLabel_matricula1.setText("Total a Pagar:");
-        panel_sortida.add(jLabel_matricula1);
-        jLabel_matricula1.setBounds(380, 300, 130, 15);
 
         jTextField_marcaSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_marcaSortidaActionPerformed(evt);
             }
         });
-        panel_sortida.add(jTextField_marcaSortida);
-        jTextField_marcaSortida.setBounds(230, 100, 166, 30);
 
         jTextField_modelSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_modelSortidaActionPerformed(evt);
             }
         });
-        panel_sortida.add(jTextField_modelSortida);
-        jTextField_modelSortida.setBounds(450, 100, 118, 30);
 
         jTextField_horaEntrada.setEditable(false);
         jTextField_horaEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -423,8 +456,6 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_horaEntradaActionPerformed(evt);
             }
         });
-        panel_sortida.add(jTextField_horaEntrada);
-        jTextField_horaEntrada.setBounds(60, 210, 100, 30);
 
         jComboBox_matriculaSortida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
         jComboBox_matriculaSortida.addActionListener(new java.awt.event.ActionListener() {
@@ -432,8 +463,6 @@ public class GUI extends javax.swing.JFrame {
                 jComboBox_matriculaSortidaActionPerformed(evt);
             }
         });
-        panel_sortida.add(jComboBox_matriculaSortida);
-        jComboBox_matriculaSortida.setBounds(60, 100, 110, 24);
 
         jButton3.setText("Pagat");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -446,39 +475,27 @@ public class GUI extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        panel_sortida.add(jButton3);
-        jButton3.setBounds(50, 370, 94, 25);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setText("SORTIDA DEL PARKING");
         jLabel3.setPreferredSize(new java.awt.Dimension(230, 18));
         jLabel3.setRequestFocusEnabled(false);
-        panel_sortida.add(jLabel3);
-        jLabel3.setBounds(60, 30, 380, 18);
 
         jLabel_plasa5.setText("Hora entrada:");
-        panel_sortida.add(jLabel_plasa5);
-        jLabel_plasa5.setBounds(60, 170, 120, 30);
 
         jTextField_pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_pagarActionPerformed(evt);
             }
         });
-        panel_sortida.add(jTextField_pagar);
-        jTextField_pagar.setBounds(380, 320, 166, 30);
 
         jTextField_preuSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_preuSortidaActionPerformed(evt);
             }
         });
-        panel_sortida.add(jTextField_preuSortida);
-        jTextField_preuSortida.setBounds(410, 210, 100, 30);
 
         jLabel_plasa6.setText("Hora sortida:");
-        panel_sortida.add(jLabel_plasa6);
-        jLabel_plasa6.setBounds(230, 170, 120, 30);
 
         jTextField_horaSortida.setEditable(false);
         jTextField_horaSortida.addActionListener(new java.awt.event.ActionListener() {
@@ -486,16 +503,104 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_horaSortidaActionPerformed(evt);
             }
         });
-        panel_sortida.add(jTextField_horaSortida);
-        jTextField_horaSortida.setBounds(230, 210, 100, 30);
 
         jButton4.setText("Calcular");
-        panel_sortida.add(jButton4);
-        jButton4.setBounds(50, 310, 94, 25);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_sortidaLayout = new javax.swing.GroupLayout(panel_sortida);
+        panel_sortida.setLayout(panel_sortidaLayout);
+        panel_sortidaLayout.setHorizontalGroup(
+            panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_sortidaLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel_plasa5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jTextField_horaEntrada))
+                        .addGap(185, 185, 185)
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_horaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_plasa6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox_matriculaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_marca1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_model1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_marcaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_plasa3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_preuSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_matricula1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_modelSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_color1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(115, 115, 115))
+        );
+        panel_sortidaLayout.setVerticalGroup(
+            panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_sortidaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_marca1)
+                    .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel_model1)
+                        .addComponent(jLabel_color1)))
+                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_sortidaLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox_matriculaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_modelSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_sortidaLayout.createSequentialGroup()
+                                .addComponent(jLabel_plasa5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField_horaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_sortidaLayout.createSequentialGroup()
+                                .addComponent(jLabel_plasa3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jTextField_preuSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_sortidaLayout.createSequentialGroup()
+                                .addComponent(jLabel_plasa6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField_horaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 47, Short.MAX_VALUE)
+                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
+                                .addComponent(jLabel_matricula1)
+                                .addGap(10, 10, 10)
+                                .addComponent(jTextField_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton3)))
+                        .addGap(78, 78, 78))
+                    .addGroup(panel_sortidaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_marcaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
 
         jLayeredPane.add(panel_sortida, "card4");
 
-        getContentPane().add(jLayeredPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 670, 450));
+        getContentPane().add(jLayeredPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 52, -1, -1));
+        jLayeredPane.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -504,7 +609,7 @@ private void inici(){
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
         InOut.llegir("vehicles.dat");
-        Calendar fecha = Calendar.getInstance();
+
 
 
        
@@ -522,6 +627,7 @@ private void inici(){
         panel_inici.setVisible(true);
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
+        panel_sortida.setVisible(false);
     }//GEN-LAST:event_jButton_iniciMouseClicked
 
     private void jButton_afegirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_afegirMouseClicked
@@ -529,14 +635,17 @@ private void inici(){
             panel_inici.setVisible(false);
             panel_mostrar.setVisible(false);
             panel_afegir.setVisible(true);
+            panel_sortida.setVisible(false);
+            java.util.Date date = new java.util.Date();
+            java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+            jTextField_hora.setText(hour.format(date)); 
             
     }//GEN-LAST:event_jButton_afegirMouseClicked
 
     private void jButton_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mostrarActionPerformed
         // TODO add your handling code here:
-        System.out.println("hola");
         ModelTaula<Vehicle> mt = new ModelTaula(new String[]{"Nom", "Cognoms", "Tipus", 
-            "Matrícuña", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Surtida"}, Principal.arrayParking);
+            "Matrícula", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Surtida"}, Principal.arrayParking);
        
         jTable_mostrar.setModel(mt);
     }//GEN-LAST:event_jButton_mostrarActionPerformed
@@ -547,6 +656,7 @@ private void inici(){
         //Fem visible el jpanel principal
         panel_mostrar.setVisible(true);
         panel_afegir.setVisible(false);
+        panel_sortida.setVisible(false);
     }//GEN-LAST:event_jButton_mostrarMouseClicked
 
     private void jButton_afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_afegirActionPerformed
@@ -573,6 +683,7 @@ private void inici(){
 
     private void jTextField_horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_horaActionPerformed
         // TODO add your handling code here:
+              
     }//GEN-LAST:event_jTextField_horaActionPerformed
 
     private void jComboBox_tipusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tipusActionPerformed
@@ -623,7 +734,7 @@ private void inici(){
         
                 InOut.escriure("vehicles.dat");
        
-            JOptionPane.showMessageDialog(this, "Vehicle afegit correctament.");
+
             //Resetejem els camps de text.
             jTextField_nom.setText("");
             jTextField_cognom.setText("");
@@ -634,6 +745,9 @@ private void inici(){
             jTextField_plaça.setText("");
             jTextField_hora.setText("");
             jTextField_matricula.setText("");
+             java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+        jTextField_hora.setText(hour.format(date)); 
 
         
 
@@ -696,9 +810,33 @@ private void inici(){
 
     private void panel_mostrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panel_mostrarFocusGained
         // TODO add your handling code here:
-        System.out.println("Hola");
+     
          
     }//GEN-LAST:event_panel_mostrarFocusGained
+
+    private void Entrada_SurtidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_SurtidaMouseClicked
+        panel_inici.setVisible(false);
+        //Fem visible el jpanel principal
+        panel_mostrar.setVisible(false);
+        panel_afegir.setVisible(false);
+        panel_sortida.setVisible(true);
+        //Possem l'hora actual a la casella
+        java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+        jTextField_horaSortida.setText(hour.format(date)); 
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Entrada_SurtidaMouseClicked
+
+    private void Entrada_SurtidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Entrada_SurtidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Entrada_SurtidaActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+         java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+        jTextField_horaSortida.setText(hour.format(date)); 
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
