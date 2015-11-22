@@ -200,7 +200,6 @@ public class GUI extends javax.swing.JFrame {
 
         jLayeredPane.setMinimumSize(new java.awt.Dimension(980, 450));
         jLayeredPane.setName(""); // NOI18N
-        jLayeredPane.setPreferredSize(new java.awt.Dimension(980, 450));
         jLayeredPane.setLayout(new java.awt.CardLayout());
 
         panel_inici.setPreferredSize(new java.awt.Dimension(950, 400));
@@ -319,10 +318,31 @@ public class GUI extends javax.swing.JFrame {
         jLabel_matricula.setText("Matrícula:");
         panel_afegir.add(jLabel_matricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, -1, -1));
 
-        jTextField_nom.setText("Nom...");
+        jTextField_nom.setEditable(false);
+        jTextField_nom.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_nomFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_nomFocusLost(evt);
+            }
+        });
+        jTextField_nom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_nomActionPerformed(evt);
+            }
+        });
         panel_afegir.add(jTextField_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 120, 30));
 
-        jTextField_cognom.setText("Cognoms...");
+        jTextField_cognom.setEditable(false);
+        jTextField_cognom.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_cognomFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_cognomFocusLost(evt);
+            }
+        });
         jTextField_cognom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_cognomActionPerformed(evt);
@@ -330,7 +350,15 @@ public class GUI extends javax.swing.JFrame {
         });
         panel_afegir.add(jTextField_cognom, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 150, 30));
 
-        jTextField_model.setText("Model");
+        jTextField_model.setEditable(false);
+        jTextField_model.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_modelFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_modelFocusLost(evt);
+            }
+        });
         jTextField_model.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_modelActionPerformed(evt);
@@ -338,7 +366,15 @@ public class GUI extends javax.swing.JFrame {
         });
         panel_afegir.add(jTextField_model, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 166, 30));
 
-        jTextField_color.setText("Negre, blau...");
+        jTextField_color.setEditable(false);
+        jTextField_color.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_colorFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_colorFocusLost(evt);
+            }
+        });
         jTextField_color.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_colorActionPerformed(evt);
@@ -407,7 +443,15 @@ public class GUI extends javax.swing.JFrame {
         jLabel_plasa2.setText("Hora entrada:");
         panel_afegir.add(jLabel_plasa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, 120, 20));
 
-        jTextField_matricula.setText("XXXX-XXX");
+        jTextField_matricula.setEditable(false);
+        jTextField_matricula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_matriculaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_matriculaFocusLost(evt);
+            }
+        });
         jTextField_matricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_matriculaActionPerformed(evt);
@@ -557,8 +601,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_marca1)
-                    .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel_model1)
+                    .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel_model1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel_color1)))
                 .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_sortidaLayout.createSequentialGroup()
@@ -580,7 +624,7 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel_plasa6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField_horaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(26, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
                                 .addComponent(jLabel_matricula1)
@@ -609,6 +653,7 @@ private void inici(){
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
         InOut.llegir("vehicles.dat");
+        
 
 
 
@@ -636,9 +681,36 @@ private void inici(){
             panel_mostrar.setVisible(false);
             panel_afegir.setVisible(true);
             panel_sortida.setVisible(false);
-            java.util.Date date = new java.util.Date();
-            java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+
+            //Contingut dels botons del menú afegir:
+            
+             jTextField_nom.setText("Fulanito");
+            jTextField_cognom.setText("De Tal");
+            jComboBox_tipus.setSelectedIndex(0);
+            jComboBox_marca.setSelectedIndex(0);
+            jTextField_model.setText("Picaso, Cordoba,...");
+            jTextField_color.setText("Gris, Negre, Blau,...");
+            jTextField_plaça.setText("Auto,...");
+            jTextField_matricula.setText("XXXX-XXX");
+
+                java.util.Date date = new java.util.Date();
+                java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
             jTextField_hora.setText(hour.format(date)); 
+            
+            //plaça
+                boolean control=false;
+                   for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
+                       Principal.arrayParking.get(i).getNom();
+         if (Principal.arrayParking.get(i).getNom().equals(null)){
+         plaça=i;
+         control=true;
+         }
+        }
+     if (plaça==0){
+     plaça=Principal.arrayParking.size()+1;
+     }
+  
+        //fi plaça 
             
     }//GEN-LAST:event_jButton_afegirMouseClicked
 
@@ -711,20 +783,7 @@ private void inici(){
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
                                               
- //plaça
-                boolean control=false;
-                   for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
-                       Principal.arrayParking.get(i).getNom();
-         if (Principal.arrayParking.get(i).getNom().equals(null)){
-         plaça=i;
-         control=true;
-         }
-        }
-     if (plaça==0){
-     plaça=Principal.arrayParking.size()+1;
-     }
-  
-        //fi plaça        
+        
         
         Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jTextField_matricula.getText(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), 
                 //Integer.parseInt(jTextField_plaça.getText()),
@@ -736,15 +795,15 @@ private void inici(){
        
 
             //Resetejem els camps de text.
-            jTextField_nom.setText("");
-            jTextField_cognom.setText("");
+            jTextField_nom.setText("Fulanito...");
+            jTextField_cognom.setText("De Tal...");
             jComboBox_tipus.setSelectedIndex(0);
             jComboBox_marca.setSelectedIndex(0);
-            jTextField_model.setText("");
-            jTextField_color.setText("");
-            jTextField_plaça.setText("");
-            jTextField_hora.setText("");
-            jTextField_matricula.setText("");
+            jTextField_model.setText("Picaso, cordoba,....");
+            jTextField_color.setText("Gris, negre, blau,...");
+            jTextField_plaça.setText("Auto,...");
+           // jTextField_hora.setText("");
+            jTextField_matricula.setText("XXXX-XXX");
              java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_hora.setText(hour.format(date)); 
@@ -837,6 +896,71 @@ private void inici(){
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_horaSortida.setText(hour.format(date)); 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField_colorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_colorFocusGained
+        // TODO add your handling code here:
+                jTextField_color.setText("");
+        jTextField_color.setEditable(true);
+    }//GEN-LAST:event_jTextField_colorFocusGained
+
+    private void jTextField_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_nomActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextField_nomActionPerformed
+
+    private void jTextField_nomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_nomFocusGained
+        // TODO add your handling code here:
+        jTextField_nom.setText("");
+        jTextField_nom.setEditable(true);
+    }//GEN-LAST:event_jTextField_nomFocusGained
+
+    private void jTextField_nomFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_nomFocusLost
+        // TODO add your handling code here:
+String texto = jTextField_nom.getText();
+if ("".equals(texto)) jTextField_nom.setText("Fulanito");
+    }//GEN-LAST:event_jTextField_nomFocusLost
+
+    private void jTextField_cognomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_cognomFocusGained
+        // TODO add your handling code here:
+                jTextField_cognom.setText("");
+        jTextField_cognom.setEditable(true);
+    }//GEN-LAST:event_jTextField_cognomFocusGained
+
+    private void jTextField_modelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_modelFocusGained
+        // TODO add your handling code here:
+                jTextField_model.setText("");
+        jTextField_model.setEditable(true);
+    }//GEN-LAST:event_jTextField_modelFocusGained
+
+    private void jTextField_matriculaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_matriculaFocusGained
+        // TODO add your handling code here:
+                jTextField_matricula.setText("");
+        jTextField_matricula.setEditable(true);
+    }//GEN-LAST:event_jTextField_matriculaFocusGained
+
+    private void jTextField_cognomFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_cognomFocusLost
+        // TODO add your handling code here:
+        String texto = jTextField_cognom.getText();
+if ("".equals(texto)) jTextField_cognom.setText("De Tal");
+    }//GEN-LAST:event_jTextField_cognomFocusLost
+
+    private void jTextField_modelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_modelFocusLost
+        // TODO add your handling code here:
+        String texto = jTextField_model.getText();
+if ("".equals(texto)) jTextField_model.setText("Picaso, Cordoba,...");
+    }//GEN-LAST:event_jTextField_modelFocusLost
+
+    private void jTextField_colorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_colorFocusLost
+        // TODO add your handling code here:
+                String texto = jTextField_color.getText();
+if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
+    }//GEN-LAST:event_jTextField_colorFocusLost
+
+    private void jTextField_matriculaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_matriculaFocusLost
+        // TODO add your handling code here:
+    String texto = jTextField_matricula.getText();
+    if ("".equals(texto)) jTextField_matricula.setText("XXXX-XXX");
+    }//GEN-LAST:event_jTextField_matriculaFocusLost
 
     /**
      * @param args the command line arguments
