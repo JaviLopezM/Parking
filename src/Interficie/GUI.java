@@ -502,7 +502,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jComboBox_matriculaSortida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
         jComboBox_matriculaSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_matriculaSortidaActionPerformed(evt);
@@ -817,9 +816,7 @@ private void inici(){
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_hora.setText(hour.format(date)); 
 
-        //plaça
-        
-                        //fi plaça      
+    
             
             		
     }//GEN-LAST:event_jButton2MouseClicked
@@ -859,7 +856,8 @@ private void inici(){
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jComboBox_matriculaSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBox_matriculaSortidaActionPerformed
 
     private void jTextField_horaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_horaEntradaActionPerformed
