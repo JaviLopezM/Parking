@@ -34,7 +34,8 @@ import java.text.SimpleDateFormat;
 
 public class GUI extends javax.swing.JFrame {
    Xml XML =new Xml();
-   int plaça;
+   int plaça=0;
+   
 
     /**
      * Creates new form GUI
@@ -698,17 +699,16 @@ private void inici(){
             jTextField_hora.setText(hour.format(date)); 
             
             //plaça
-                boolean control=false;
-                   for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
-                       Principal.arrayParking.get(i).getNom();
-         if (Principal.arrayParking.get(i).getNom().equals(null)){
-         plaça=i;
-         control=true;
-         }
-        }
-     if (plaça==0){
-     plaça=Principal.arrayParking.size()+1;
-     }
+        boolean control=false;
+            for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
+                if (Principal.arrayParking.get(i).getNom().equals(null)){
+                plaça=i;
+                control=true;
+                }
+            }
+            if (plaça==0){
+            plaça=Principal.arrayParking.size()+1;
+            }
   
         //fi plaça 
             
@@ -782,7 +782,16 @@ private void inici(){
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-                                              
+      //Assignem la plaça buscant un forat a la Array abans d'assignali la última posició.
+        boolean control=false;
+            for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
+                if (Principal.arrayParking.get(i).getPlasa()!=i+1){
+                plaça=i+1;
+                control=true;
+                }
+            }
+      //fi assignació plaça
+            JOptionPane.showMessageDialog(null, "Al usuari se li ha assignat la plaça: 0"+Integer.toString(plaça));
         
         
         Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jTextField_matricula.getText(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), 
@@ -800,17 +809,19 @@ private void inici(){
             jComboBox_tipus.setSelectedIndex(0);
             jComboBox_marca.setSelectedIndex(0);
             jTextField_model.setText("Picaso, cordoba,....");
-            jTextField_color.setText("Gris, negre, blau,...");
-            jTextField_plaça.setText("Auto,...");
+            jTextField_color.setText("Gris, Negre, Blau,...");
+            jTextField_plaça.setText("Auto");
            // jTextField_hora.setText("");
             jTextField_matricula.setText("XXXX-XXX");
              java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_hora.setText(hour.format(date)); 
 
+        //plaça
         
-
-                                         
+                        //fi plaça      
+            
+            		
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jTextField_matriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_matriculaActionPerformed
