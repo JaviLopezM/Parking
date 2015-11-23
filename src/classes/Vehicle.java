@@ -1,13 +1,15 @@
 package classes;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Vehicle implements Serializable{
 	private String nom;
 	private String cognom;
 	private String tipus;
-	private String matricula;
+	public String matricula;
 	private String marca;
 	private String model;
 	private String color;

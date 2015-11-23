@@ -8,8 +8,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import static java.lang.String.valueOf;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 
@@ -35,11 +38,14 @@ import java.text.SimpleDateFormat;
 public class GUI extends javax.swing.JFrame {
    Xml XML =new Xml();
    int plaça=0;
-   
+   long fechaFinal;
+   long fechaInicial;
+   int index;
 
     /**
      * Creates new form GUI
      */
+    
     public GUI() {
         initComponents();
         inici();
@@ -110,8 +116,17 @@ public class GUI extends javax.swing.JFrame {
         jLabel_plasa6 = new javax.swing.JLabel();
         jTextField_horaSortida = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField_nomSortida = new javax.swing.JTextField();
+        jTextField_cognomSortida = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tempsFinal = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(980, 510));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel_menu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -221,7 +236,7 @@ public class GUI extends javax.swing.JFrame {
         panel_iniciLayout.setVerticalGroup(
             panel_iniciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_iniciLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(250, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(193, 193, 193))
         );
@@ -234,7 +249,8 @@ public class GUI extends javax.swing.JFrame {
         panel_mostrar.setMinimumSize(new java.awt.Dimension(985, 405));
         panel_mostrar.setName(""); // NOI18N
         panel_mostrar.setOpaque(false);
-        panel_mostrar.setPreferredSize(new java.awt.Dimension(950, 400));
+        panel_mostrar.setPreferredSize(new java.awt.Dimension(970, 500));
+        panel_mostrar.setRequestFocusEnabled(false);
         panel_mostrar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 panel_mostrarFocusGained(evt);
@@ -270,9 +286,10 @@ public class GUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_mostrar.setMinimumSize(new java.awt.Dimension(900, 300));
+        jTable_mostrar.setMinimumSize(new java.awt.Dimension(900, 400));
         jTable_mostrar.setName(""); // NOI18N
-        jTable_mostrar.setPreferredSize(new java.awt.Dimension(900, 300));
+        jTable_mostrar.setOpaque(false);
+        jTable_mostrar.setPreferredSize(new java.awt.Dimension(910, 480));
         jTable_mostrar.setRowSelectionAllowed(false);
         jScrollPane2.setViewportView(jTable_mostrar);
 
@@ -289,7 +306,8 @@ public class GUI extends javax.swing.JFrame {
             panel_mostrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_mostrarLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jLayeredPane.add(panel_mostrar, "card3");
@@ -383,6 +401,7 @@ public class GUI extends javax.swing.JFrame {
         });
         panel_afegir.add(jTextField_color, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 118, 30));
 
+        jTextField_plaça.setEditable(false);
         jTextField_plaça.setToolTipText("");
         jTextField_plaça.setEnabled(false);
         jTextField_plaça.addActionListener(new java.awt.event.ActionListener() {
@@ -472,28 +491,45 @@ public class GUI extends javax.swing.JFrame {
 
         panel_sortida.setMinimumSize(new java.awt.Dimension(950, 400));
         panel_sortida.setPreferredSize(new java.awt.Dimension(950, 400));
+        panel_sortida.setLayout(null);
 
         jLabel_marca1.setText("Matricula:");
+        panel_sortida.add(jLabel_marca1);
+        jLabel_marca1.setBounds(40, 60, 100, 15);
 
         jLabel_model1.setText("Marca:");
+        panel_sortida.add(jLabel_model1);
+        jLabel_model1.setBounds(310, 60, 100, 15);
 
         jLabel_color1.setText("Model:");
+        panel_sortida.add(jLabel_color1);
+        jLabel_color1.setBounds(580, 60, 70, 15);
 
         jLabel_plasa3.setText("Preu/hora:");
+        panel_sortida.add(jLabel_plasa3);
+        jLabel_plasa3.setBounds(580, 190, 120, 30);
 
         jLabel_matricula1.setText("Total a Pagar:");
+        panel_sortida.add(jLabel_matricula1);
+        jLabel_matricula1.setBounds(590, 300, 130, 15);
 
+        jTextField_marcaSortida.setEditable(false);
         jTextField_marcaSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_marcaSortidaActionPerformed(evt);
             }
         });
+        panel_sortida.add(jTextField_marcaSortida);
+        jTextField_marcaSortida.setBounds(310, 80, 120, 30);
 
+        jTextField_modelSortida.setEditable(false);
         jTextField_modelSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_modelSortidaActionPerformed(evt);
             }
         });
+        panel_sortida.add(jTextField_modelSortida);
+        jTextField_modelSortida.setBounds(580, 80, 118, 30);
 
         jTextField_horaEntrada.setEditable(false);
         jTextField_horaEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -501,12 +537,17 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_horaEntradaActionPerformed(evt);
             }
         });
+        panel_sortida.add(jTextField_horaEntrada);
+        jTextField_horaEntrada.setBounds(40, 150, 120, 34);
 
+        jComboBox_matriculaSortida.setToolTipText("");
         jComboBox_matriculaSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_matriculaSortidaActionPerformed(evt);
             }
         });
+        panel_sortida.add(jComboBox_matriculaSortida);
+        jComboBox_matriculaSortida.setBounds(40, 80, 110, 24);
 
         jButton3.setText("Pagat");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -519,27 +560,41 @@ public class GUI extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+        panel_sortida.add(jButton3);
+        jButton3.setBounds(40, 340, 94, 25);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setText("SORTIDA DEL PARKING");
         jLabel3.setPreferredSize(new java.awt.Dimension(230, 18));
         jLabel3.setRequestFocusEnabled(false);
+        panel_sortida.add(jLabel3);
+        jLabel3.setBounds(70, 20, 309, 29);
 
         jLabel_plasa5.setText("Hora entrada:");
+        panel_sortida.add(jLabel_plasa5);
+        jLabel_plasa5.setBounds(40, 120, 120, 30);
 
+        jTextField_pagar.setEditable(false);
         jTextField_pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_pagarActionPerformed(evt);
             }
         });
+        panel_sortida.add(jTextField_pagar);
+        jTextField_pagar.setBounds(590, 330, 166, 30);
 
+        jTextField_preuSortida.setEditable(false);
         jTextField_preuSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_preuSortidaActionPerformed(evt);
             }
         });
+        panel_sortida.add(jTextField_preuSortida);
+        jTextField_preuSortida.setBounds(580, 220, 100, 30);
 
         jLabel_plasa6.setText("Hora sortida:");
+        panel_sortida.add(jLabel_plasa6);
+        jLabel_plasa6.setBounds(40, 200, 120, 20);
 
         jTextField_horaSortida.setEditable(false);
         jTextField_horaSortida.addActionListener(new java.awt.event.ActionListener() {
@@ -547,99 +602,53 @@ public class GUI extends javax.swing.JFrame {
                 jTextField_horaSortidaActionPerformed(evt);
             }
         });
+        panel_sortida.add(jTextField_horaSortida);
+        jTextField_horaSortida.setBounds(40, 220, 120, 34);
 
         jButton4.setText("Calcular");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
+        panel_sortida.add(jButton4);
+        jButton4.setBounds(40, 290, 94, 25);
 
-        javax.swing.GroupLayout panel_sortidaLayout = new javax.swing.GroupLayout(panel_sortida);
-        panel_sortida.setLayout(panel_sortidaLayout);
-        panel_sortidaLayout.setHorizontalGroup(
-            panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_sortidaLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel_plasa5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jTextField_horaEntrada))
-                        .addGap(185, 185, 185)
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_horaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_plasa6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(83, 83, 83))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox_matriculaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_marca1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_model1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_marcaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_plasa3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_preuSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_matricula1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_modelSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_color1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
-        );
-        panel_sortidaLayout.setVerticalGroup(
-            panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_sortidaLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_marca1)
-                    .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel_model1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel_color1)))
-                .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_sortidaLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox_matriculaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_modelSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_sortidaLayout.createSequentialGroup()
-                                .addComponent(jLabel_plasa5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField_horaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_sortidaLayout.createSequentialGroup()
-                                .addComponent(jLabel_plasa3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextField_preuSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_sortidaLayout.createSequentialGroup()
-                                .addComponent(jLabel_plasa6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField_horaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel_sortidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
-                                .addComponent(jLabel_matricula1)
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextField_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sortidaLayout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addGap(30, 30, 30)
-                                .addComponent(jButton3)))
-                        .addGap(78, 78, 78))
-                    .addGroup(panel_sortidaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_marcaSortida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
+        jLabel4.setText("Nom:");
+        panel_sortida.add(jLabel4);
+        jLabel4.setBounds(310, 130, 36, 15);
+
+        jLabel5.setText("Cognom:");
+        panel_sortida.add(jLabel5);
+        jLabel5.setBounds(580, 120, 62, 20);
+
+        jTextField_nomSortida.setEditable(false);
+        jTextField_nomSortida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_nomSortidaActionPerformed(evt);
+            }
+        });
+        panel_sortida.add(jTextField_nomSortida);
+        jTextField_nomSortida.setBounds(310, 150, 120, 30);
+
+        jTextField_cognomSortida.setEditable(false);
+        panel_sortida.add(jTextField_cognomSortida);
+        jTextField_cognomSortida.setBounds(580, 150, 270, 30);
+
+        jLabel6.setText("Temps al parking");
+        panel_sortida.add(jLabel6);
+        jLabel6.setBounds(310, 300, 140, 15);
+
+        tempsFinal.setEditable(false);
+        panel_sortida.add(tempsFinal);
+        tempsFinal.setBounds(310, 330, 140, 30);
+        panel_sortida.add(jSeparator1);
+        jSeparator1.setBounds(310, 270, 590, 10);
 
         jLayeredPane.add(panel_sortida, "card4");
 
@@ -653,7 +662,6 @@ private void inici(){
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
         InOut.llegir("vehicles.dat");
-        
 
 
 
@@ -690,35 +698,34 @@ private void inici(){
             jComboBox_marca.setSelectedIndex(0);
             jTextField_model.setText("Picaso, Cordoba,...");
             jTextField_color.setText("Gris, Negre, Blau,...");
-            jTextField_plaça.setText("Auto,...");
+            jTextField_plaça.setText("Auto");
             jTextField_matricula.setText("XXXX-XXX");
 
                 java.util.Date date = new java.util.Date();
                 java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
             jTextField_hora.setText(hour.format(date)); 
             
-            //plaça
-        boolean control=false;
-            for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
-                if (Principal.arrayParking.get(i).getNom().equals(null)){
-                plaça=i;
-                control=true;
-                }
-            }
-            if (plaça==0){
-            plaça=Principal.arrayParking.size()+1;
-            }
-  
-        //fi plaça 
+            
             
     }//GEN-LAST:event_jButton_afegirMouseClicked
 
     private void jButton_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mostrarActionPerformed
         // TODO add your handling code here:
-        ModelTaula<Vehicle> mt = new ModelTaula(new String[]{"Nom", "Cognoms", "Tipus", 
-            "Matrícula", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Surtida"}, Principal.arrayParking);
+        ModelTaula<Vehicle> mt = new ModelTaula(new String[]{"Cognoms", "Color", "Hora Entrada", 
+            "Hora de surtida", "Marca", "Matricula", "Model", "Nom", "Plaça", "Hora Preu", "Tipus"}, Principal.arrayParking);
        
         jTable_mostrar.setModel(mt);
+                //Si volem canviar l'ordre de visualització de les columnes, borra-les, etc...
+        TableColumnModel cm=jTable_mostrar.getColumnModel();
+        cm.moveColumn(7, 0);
+        cm.moveColumn(10, 2);
+        cm.moveColumn(6, 3);
+        cm.moveColumn(8, 4);
+        cm.moveColumn(8, 3);
+        
+
+//La primer columna passa a mostrar-se en 2n lloc
+        //cm.removeColumn(cm.getColumn(2));
     }//GEN-LAST:event_jButton_mostrarActionPerformed
 
     private void jButton_mostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_mostrarMouseClicked
@@ -782,21 +789,21 @@ private void inici(){
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
       //Assignem la plaça buscant un forat a la Array abans d'assignali la última posició.
+        int i=0;
         boolean control=false;
-            for (int i = 0;i< Principal.arrayParking.size()&&control==false; i++){
+            for (i=0;i< Principal.arrayParking.size()&&control==false; i++){
                 if (Principal.arrayParking.get(i).getPlasa()!=i+1){
                 plaça=i+1;
                 control=true;
                 }
             }
+            if (plaça<Principal.arrayParking.size())plaça=Principal.arrayParking.size();
       //fi assignació plaça
             JOptionPane.showMessageDialog(null, "Al usuari se li ha assignat la plaça: 0"+Integer.toString(plaça));
         
         
         Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jTextField_matricula.getText(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), 
-                //Integer.parseInt(jTextField_plaça.getText()),
-                (plaça),
-                Float.parseFloat(jTextField_preu.getText()), jTextField_hora.getText(), ("")));
+                                      (plaça),Float.parseFloat(jTextField_preu.getText()), jTextField_hora.getText(), ("")));
         
         
                 InOut.escriure("vehicles.dat");
@@ -816,7 +823,8 @@ private void inici(){
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_hora.setText(hour.format(date)); 
 
-    
+        fechaInicial = date.getTime();
+
             
             		
     }//GEN-LAST:event_jButton2MouseClicked
@@ -835,6 +843,7 @@ private void inici(){
 
     private void jButton_tancaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_tancaMouseClicked
         // TODO add your handling code here:
+        InOut.escriure("vehicles.dat");
         this.dispose();
     }//GEN-LAST:event_jButton_tancaMouseClicked
 
@@ -853,10 +862,34 @@ private void inici(){
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
+        Principal.arrayParking.remove(index);
+                        JOptionPane.showMessageDialog(null, "Transacció finalitzada\nVehicle eliminat correctament.");
+        java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+        jTextField_horaSortida.setText(hour.format(date)); 
+
+        jComboBox_matriculaSortida.removeAllItems();
+        String matricula;
+        for(int i=0;i<Principal.arrayParking.size();i++){
+        matricula=Principal.arrayParking.get(i).getMatricula();
+        jComboBox_matriculaSortida.addItem(matricula);
+        }
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jComboBox_matriculaSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaActionPerformed
        // TODO add your handling code here:
+        //Quan seleccionem un item de la llista identifiquem la seva posició del array i omplim la resta de camps utilitzant
+        //la posició correcta del array que acavem d'obtenir.
+
+        for (index=0;jComboBox_matriculaSortida.getSelectedItem()!=Principal.arrayParking.get(index).getMatricula();index++){
+            }
+        jTextField_marcaSortida.setText(Principal.arrayParking.get(index).getMarca());
+        jTextField_modelSortida.setText(Principal.arrayParking.get(index).getModel());
+        jTextField_nomSortida.setText(Principal.arrayParking.get(index).getNom());
+        jTextField_cognomSortida.setText(Principal.arrayParking.get(index).getCognom());
+        jTextField_horaEntrada.setText(Principal.arrayParking.get(index).getHoraEntrada());
+        jTextField_preuSortida.setText(Float.toString(Principal.arrayParking.get(index).getPreu()));
+        
         
     }//GEN-LAST:event_jComboBox_matriculaSortidaActionPerformed
 
@@ -892,7 +925,13 @@ private void inici(){
         java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_horaSortida.setText(hour.format(date)); 
-        // TODO add your handling code here:
+        jComboBox_matriculaSortida.removeAllItems();
+        String matricula;
+        for(int i=0;i<Principal.arrayParking.size();i++){
+        matricula=Principal.arrayParking.get(i).getMatricula();
+        jComboBox_matriculaSortida.addItem(matricula);
+        }
+        
     }//GEN-LAST:event_Entrada_SurtidaMouseClicked
 
     private void Entrada_SurtidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Entrada_SurtidaActionPerformed
@@ -903,7 +942,15 @@ private void inici(){
         // TODO add your handling code here:
          java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
-        jTextField_horaSortida.setText(hour.format(date)); 
+        jTextField_horaSortida.setText(hour.format(date));
+        fechaFinal = date.getTime();
+        long diferencia = fechaFinal - fechaInicial;
+         long diffMinutos =  Math.abs (diferencia / (60*60 * 1000));
+        long restominutos = diffMinutos%60;
+        tempsFinal.setText(valueOf(diffMinutos));
+        
+        
+                        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField_colorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_colorFocusGained
@@ -971,6 +1018,14 @@ if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
     if ("".equals(texto)) jTextField_matricula.setText("XXXX-XXX");
     }//GEN-LAST:event_jTextField_matriculaFocusLost
 
+    private void jTextField_nomSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_nomSortidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_nomSortidaActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1022,6 +1077,9 @@ if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_cognom1;
     private javax.swing.JLabel jLabel_color;
     private javax.swing.JLabel jLabel_color1;
@@ -1042,8 +1100,10 @@ if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable_mostrar;
     private javax.swing.JTextField jTextField_cognom;
+    private javax.swing.JTextField jTextField_cognomSortida;
     private javax.swing.JTextField jTextField_color;
     private javax.swing.JTextField jTextField_hora;
     private javax.swing.JTextField jTextField_horaEntrada;
@@ -1053,6 +1113,7 @@ if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
     private javax.swing.JTextField jTextField_model;
     private javax.swing.JTextField jTextField_modelSortida;
     private javax.swing.JTextField jTextField_nom;
+    private javax.swing.JTextField jTextField_nomSortida;
     private javax.swing.JTextField jTextField_pagar;
     private javax.swing.JTextField jTextField_plaça;
     private javax.swing.JTextField jTextField_preu;
@@ -1061,6 +1122,7 @@ if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
     private javax.swing.JPanel panel_inici;
     private javax.swing.JPanel panel_mostrar;
     private javax.swing.JPanel panel_sortida;
+    private javax.swing.JTextField tempsFinal;
     // End of variables declaration//GEN-END:variables
 
 }

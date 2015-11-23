@@ -68,7 +68,7 @@ public static void escriure(String s){
       JOptionPane.showMessageDialog(null, "Error al tancar l'arxiu.");
         //Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
     }
-                JOptionPane.showMessageDialog(null, "Vehicle afegit correctament.");
+                JOptionPane.showMessageDialog(null, "Dades guardades correctament.");
 }
 
     
