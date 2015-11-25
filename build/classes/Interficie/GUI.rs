@@ -1,2 +1,0 @@
-Interficie.ModelTaula
-Interficie.GUI

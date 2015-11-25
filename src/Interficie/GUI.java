@@ -38,8 +38,6 @@ import java.util.Date;
 public class GUI extends javax.swing.JFrame {
    Xml XML =new Xml();
    int plaça=0;
-   long fechaFinal;
-   long fechaInicial;
    int index;
 
     /**
@@ -228,17 +226,17 @@ public class GUI extends javax.swing.JFrame {
         panel_inici.setLayout(panel_iniciLayout);
         panel_iniciLayout.setHorizontalGroup(
             panel_iniciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_iniciLayout.createSequentialGroup()
-                .addGap(256, 256, 256)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_iniciLayout.createSequentialGroup()
+                .addContainerGap(278, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(231, 231, 231))
         );
         panel_iniciLayout.setVerticalGroup(
             panel_iniciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_iniciLayout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+            .addGroup(panel_iniciLayout.createSequentialGroup()
+                .addGap(140, 140, 140)
                 .addComponent(jLabel1)
-                .addGap(193, 193, 193))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
 
         jLayeredPane.add(panel_inici, "card2");
@@ -262,20 +260,20 @@ public class GUI extends javax.swing.JFrame {
 
         jTable_mostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nom", "Cognoms", "Tipus", "Matrícula", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada", "Hora Sortida"
+                "Nom", "Cognoms", "Tipus", "Matrícula", "Marca", "Model", "Color", "Plaça", "Preu", "Hora Entrada"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -338,6 +336,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jLabel_matricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, -1, -1));
 
         jTextField_nom.setEditable(false);
+        jTextField_nom.setNextFocusableComponent(jTextField_cognom);
         jTextField_nom.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_nomFocusGained(evt);
@@ -354,6 +353,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jTextField_nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 120, 30));
 
         jTextField_cognom.setEditable(false);
+        jTextField_cognom.setNextFocusableComponent(jComboBox_tipus);
         jTextField_cognom.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_cognomFocusGained(evt);
@@ -370,6 +370,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jTextField_cognom, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 150, 30));
 
         jTextField_model.setEditable(false);
+        jTextField_model.setNextFocusableComponent(jTextField_color);
         jTextField_model.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_modelFocusGained(evt);
@@ -386,6 +387,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jTextField_model, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 166, 30));
 
         jTextField_color.setEditable(false);
+        jTextField_color.setNextFocusableComponent(jTextField_matricula);
         jTextField_color.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_colorFocusGained(evt);
@@ -423,6 +425,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jLabel_cognom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
         jComboBox_tipus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Cotxe", "Moto" }));
+        jComboBox_tipus.setNextFocusableComponent(jComboBox_marca);
         jComboBox_tipus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_tipusActionPerformed(evt);
@@ -431,6 +434,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jComboBox_tipus, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 71, 30));
 
         jComboBox_marca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Alfa Romeo", "Aprilia", "Aston Martin", "Audi", "BMW", "Christler", "Chevrolet", "Derbi", "Ducati", "Ferrari", "Fiat", "Ford", "Gilera", "Harley-Davison", "Honda", "Hyundai", "Infinity", "Jaguar", "Jeep", "Kawasaki", "Kia", "Kimco", "KTM", "Lancia", "Land Rover", "Lexus", "Mazda", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Opel", "Peogeot", "Porsche", "Renault", "Seat", "Skoda", "Smart", "Subaru", "Suzuki", "Tata", "Toyota", "Subaru", "Volkswagen", "Volvo", "Yamaha" }));
+        jComboBox_marca.setNextFocusableComponent(jTextField_model);
         jComboBox_marca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_marcaActionPerformed(evt);
@@ -442,6 +446,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jLabel_plasa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
         jButton2.setText("Afegir");
+        jButton2.setNextFocusableComponent(jTextField_nom);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -464,6 +469,7 @@ public class GUI extends javax.swing.JFrame {
         panel_afegir.add(jLabel_plasa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, 120, 20));
 
         jTextField_matricula.setEditable(false);
+        jTextField_matricula.setNextFocusableComponent(jButton2);
         jTextField_matricula.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_matriculaFocusGained(evt);
@@ -541,6 +547,19 @@ public class GUI extends javax.swing.JFrame {
         jTextField_horaEntrada.setBounds(40, 150, 120, 34);
 
         jComboBox_matriculaSortida.setToolTipText("");
+        jComboBox_matriculaSortida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jComboBox_matriculaSortidaFocusGained(evt);
+            }
+        });
+        jComboBox_matriculaSortida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox_matriculaSortidaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBox_matriculaSortidaMouseEntered(evt);
+            }
+        });
         jComboBox_matriculaSortida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_matriculaSortidaActionPerformed(evt);
@@ -553,6 +572,9 @@ public class GUI extends javax.swing.JFrame {
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton3MouseEntered(evt);
             }
         });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -681,6 +703,7 @@ private void inici(){
         panel_mostrar.setVisible(false);
         panel_afegir.setVisible(false);
         panel_sortida.setVisible(false);
+        jComboBox_matriculaSortida.removeAllItems();
     }//GEN-LAST:event_jButton_iniciMouseClicked
 
     private void jButton_afegirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_afegirMouseClicked
@@ -692,7 +715,7 @@ private void inici(){
 
             //Contingut dels botons del menú afegir:
             
-             jTextField_nom.setText("Fulanito");
+            jTextField_nom.setText("Fulanito");
             jTextField_cognom.setText("De Tal");
             jComboBox_tipus.setSelectedIndex(0);
             jComboBox_marca.setSelectedIndex(0);
@@ -706,22 +729,12 @@ private void inici(){
             jTextField_hora.setText(hour.format(date)); 
             
             
-            
+            jComboBox_matriculaSortida.removeAllItems();
     }//GEN-LAST:event_jButton_afegirMouseClicked
 
     private void jButton_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mostrarActionPerformed
         // TODO add your handling code here:
-        ModelTaula<Vehicle> mt = new ModelTaula(new String[]{"Cognoms", "Color", "Hora Entrada", 
-            "Hora de surtida", "Marca", "Matricula", "Model", "Nom", "Plaça", "Hora Preu", "Tipus"}, Principal.arrayParking);
-       
-        jTable_mostrar.setModel(mt);
-                //Si volem canviar l'ordre de visualització de les columnes, borra-les, etc...
-        TableColumnModel cm=jTable_mostrar.getColumnModel();
-        cm.moveColumn(7, 0);
-        cm.moveColumn(10, 2);
-        cm.moveColumn(6, 3);
-        cm.moveColumn(8, 4);
-        cm.moveColumn(8, 3);
+
         
 
 //La primer columna passa a mostrar-se en 2n lloc
@@ -730,11 +743,25 @@ private void inici(){
 
     private void jButton_mostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_mostrarMouseClicked
         // TODO add your handling code here:
+                ModelTaula<Vehicle> mt = new ModelTaula(new String[]{"Cognoms", "Color", "Hora Entrada",
+            "Marca", "Matricula", "Model", "Nom", "Plaça", "Preu", "Tipus"}, Principal.arrayParking);
+       
+        jTable_mostrar.setModel(mt);
+                //Si volem canviar l'ordre de visualització de les columnes, borra-les, etc...
+        TableColumnModel cm=jTable_mostrar.getColumnModel();
+        cm.moveColumn(6, 0);
+        cm.moveColumn(9, 2);
+        cm.moveColumn(5, 3);
+        cm.moveColumn(7, 4);
+        cm.moveColumn(7, 3);
+        
         panel_inici.setVisible(false);
         //Fem visible el jpanel principal
         panel_mostrar.setVisible(true);
         panel_afegir.setVisible(false);
         panel_sortida.setVisible(false);
+        jComboBox_matriculaSortida.removeAllItems();
+        
     }//GEN-LAST:event_jButton_mostrarMouseClicked
 
     private void jButton_afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_afegirActionPerformed
@@ -788,7 +815,14 @@ private void inici(){
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-      //Assignem la plaça buscant un forat a la Array abans d'assignali la última posició.
+      //Preparem el rellotge:
+        java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+        //Guardem el temps en una variable per a que sigui fixa.        
+        String horaInicial=(hour.format(date)).toString();        
+        
+//Assignem la plaça buscant un forat a la Array abans d'assignali la última posició.
+        
         int i=0;
         boolean control=false;
             for (i=0;i< Principal.arrayParking.size()&&control==false; i++){
@@ -797,18 +831,16 @@ private void inici(){
                 control=true;
                 }
             }
-            if (plaça<Principal.arrayParking.size())plaça=Principal.arrayParking.size();
+            if(i<Principal.arrayParking.size())plaça=i+1;
+            //if (plaça<Principal.arrayParking.size())plaça=Principal.arrayParking.size();
       //fi assignació plaça
             JOptionPane.showMessageDialog(null, "Al usuari se li ha assignat la plaça: 0"+Integer.toString(plaça));
         
-        
-        Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jTextField_matricula.getText(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), 
-                                      (plaça),Float.parseFloat(jTextField_preu.getText()), jTextField_hora.getText(), ("")));
-        
-        
-                InOut.escriure("vehicles.dat");
-       
 
+        Principal.arrayParking.add(new Vehicle(jTextField_nom.getText(), jTextField_cognom.getText(), jComboBox_tipus.getSelectedItem().toString(), jTextField_matricula.getText(), jComboBox_marca.getSelectedItem().toString(), jTextField_model.getText(), jTextField_color.getText(), 
+                                      (plaça),Float.parseFloat(jTextField_preu.getText()), horaInicial));
+        
+        
             //Resetejem els camps de text.
             jTextField_nom.setText("Fulanito...");
             jTextField_cognom.setText("De Tal...");
@@ -817,15 +849,11 @@ private void inici(){
             jTextField_model.setText("Picaso, cordoba,....");
             jTextField_color.setText("Gris, Negre, Blau,...");
             jTextField_plaça.setText("Auto");
-           // jTextField_hora.setText("");
             jTextField_matricula.setText("XXXX-XXX");
-             java.util.Date date = new java.util.Date();
-        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
-        jTextField_hora.setText(hour.format(date)); 
+            //Possem l'hora actual.
+            jTextField_hora.setText(hour.format(date));
 
-        fechaInicial = date.getTime();
 
-            
             		
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -862,35 +890,53 @@ private void inici(){
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
+for (index=0;jComboBox_matriculaSortida.getSelectedItem()!=Principal.arrayParking.get(index).getMatricula();index++){
+        }
+       
         Principal.arrayParking.remove(index);
-                        JOptionPane.showMessageDialog(null, "Transacció finalitzada\nVehicle eliminat correctament.");
+
+        JOptionPane.showMessageDialog(null, "Transacció finalitzada\nVehicle eliminat correctament.");
         java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_horaSortida.setText(hour.format(date)); 
+        
+
+      
+       /* for (index=0;jComboBox_matriculaSortida.getSelectedItem()!=Principal.arrayParking.get(index).getMatricula();index++){
+       }
+       */ 
+
+        
+        jTextField_marcaSortida.setText("");
+        jTextField_modelSortida.setText("");
+        jTextField_nomSortida.setText("");
+        jTextField_cognomSortida.setText("");
+        jTextField_horaEntrada.setText("");
+        jTextField_preuSortida.setText("");
+        
 
         jComboBox_matriculaSortida.removeAllItems();
-        String matricula;
+       String matricula;
         for(int i=0;i<Principal.arrayParking.size();i++){
         matricula=Principal.arrayParking.get(i).getMatricula();
         jComboBox_matriculaSortida.addItem(matricula);
         }
+        
+        
+        
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jComboBox_matriculaSortidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaActionPerformed
        // TODO add your handling code here:
-        //Quan seleccionem un item de la llista identifiquem la seva posició del array i omplim la resta de camps utilitzant
-        //la posició correcta del array que acavem d'obtenir.
-
-        for (index=0;jComboBox_matriculaSortida.getSelectedItem()!=Principal.arrayParking.get(index).getMatricula();index++){
-            }
+     
+         for (index=0;jComboBox_matriculaSortida.getSelectedItem()!=Principal.arrayParking.get(index).getMatricula();index++){
+        }
         jTextField_marcaSortida.setText(Principal.arrayParking.get(index).getMarca());
         jTextField_modelSortida.setText(Principal.arrayParking.get(index).getModel());
         jTextField_nomSortida.setText(Principal.arrayParking.get(index).getNom());
         jTextField_cognomSortida.setText(Principal.arrayParking.get(index).getCognom());
         jTextField_horaEntrada.setText(Principal.arrayParking.get(index).getHoraEntrada());
         jTextField_preuSortida.setText(Float.toString(Principal.arrayParking.get(index).getPreu()));
-        
-        
     }//GEN-LAST:event_jComboBox_matriculaSortidaActionPerformed
 
     private void jTextField_horaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_horaEntradaActionPerformed
@@ -925,13 +971,13 @@ private void inici(){
         java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
         jTextField_horaSortida.setText(hour.format(date)); 
+        
         jComboBox_matriculaSortida.removeAllItems();
         String matricula;
         for(int i=0;i<Principal.arrayParking.size();i++){
         matricula=Principal.arrayParking.get(i).getMatricula();
         jComboBox_matriculaSortida.addItem(matricula);
         }
-        
     }//GEN-LAST:event_Entrada_SurtidaMouseClicked
 
     private void Entrada_SurtidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Entrada_SurtidaActionPerformed
@@ -940,17 +986,6 @@ private void inici(){
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         java.util.Date date = new java.util.Date();
-        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
-        jTextField_horaSortida.setText(hour.format(date));
-        fechaFinal = date.getTime();
-        long diferencia = fechaFinal - fechaInicial;
-         long diffMinutos =  Math.abs (diferencia / (60*60 * 1000));
-        long restominutos = diffMinutos%60;
-        tempsFinal.setText(valueOf(diffMinutos));
-        
-        
-                        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField_colorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_colorFocusGained
@@ -1024,7 +1059,49 @@ if ("".equals(texto)) jTextField_color.setText("Negre, Blau,...");
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
+                 java.util.Date date = new java.util.Date();
+        java.text.SimpleDateFormat hour=new java.text.SimpleDateFormat("HH:mm:ss");
+        jTextField_horaSortida.setText(hour.format(date));
+  
+        String horafinal=(hour.format(date)).toString();
+        String horaInicial=Principal.arrayParking.get(index).getHoraEntrada();
+        String[] tempsF = horafinal.split(":");
+        String[] tempsI = horaInicial.split(":");
+       // for(int i=0;i<tempsF.length;i++){
+       // System.out.println("en la posició "+i+" hi ha "+tempsF[i]);
+       // }
+        double horaF= Integer.parseInt(tempsF[0]) - Integer.parseInt(tempsI[0]);
+        int minutsF= Integer.parseInt(tempsF[1]) - Integer.parseInt(tempsI[1]);
+        if(minutsF<0)minutsF=minutsF*-1;
+        int segonsF= Integer.parseInt(tempsF[2]) - Integer.parseInt(tempsI[2]);
+        if(segonsF<0)segonsF=segonsF*-1;
+        tempsFinal.setText((int)horaF+":"+minutsF+":"+segonsF);
+        double mig=0.5;
+        
+        if(minutsF<=30)horaF=horaF+mig;
+        if(minutsF>30)horaF=horaF+1;
+        System.out.print(mig+" "+horaF+"\n");
+        jTextField_pagar.setText(horaF * Principal.arrayParking.get(index).getPreu()+"€");
+             
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jComboBox_matriculaSortidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_matriculaSortidaMouseClicked
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseEntered
+
+    private void jComboBox_matriculaSortidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaMouseEntered
+        // TODO add your handling code here:
+           
+    }//GEN-LAST:event_jComboBox_matriculaSortidaMouseEntered
+
+    private void jComboBox_matriculaSortidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_matriculaSortidaFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jComboBox_matriculaSortidaFocusGained
 
     /**
      * @param args the command line arguments

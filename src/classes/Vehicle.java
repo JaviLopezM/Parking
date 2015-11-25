@@ -16,11 +16,10 @@ public class Vehicle implements Serializable{
 	private int plasa;
         private float preu;
         private String horaEntrada;
-        private String horaSurtida;
 	
 	
 	public Vehicle (String nom, String cognom,  String tipus, String matricula, String marca,
-                String model, String color, int plasa, float preu, String horaEntrada, String horaSurtida){
+                String model, String color, int plasa, float preu, String horaEntrada){
 		this.nom = nom;
 		this.cognom = cognom;
 		this.tipus = tipus;
@@ -31,7 +30,7 @@ public class Vehicle implements Serializable{
 		this.plasa = plasa;
                 this.preu = preu;
                 this.horaEntrada = horaEntrada;
-                this.horaSurtida = horaSurtida;
+
 		
 		
 	}
@@ -116,14 +115,7 @@ public class Vehicle implements Serializable{
         this.horaEntrada = horaEntrada;
     }
 
-    public String getHoraSurtida() {
-        return horaSurtida;
-    }
-
-    public void setHoraSurtida(String horaSurtida) {
-        this.horaSurtida = horaSurtida;
-    }
-
+   
     
 
     

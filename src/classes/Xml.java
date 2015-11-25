@@ -5,6 +5,7 @@ import java.io.File;
 import static java.lang.Integer.toString;
 import static java.util.Arrays.toString;
 import static java.util.Arrays.toString;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -103,7 +104,7 @@ public static void xml() {
 
 			transformer.transform(source, result);
 
-			System.out.println("Arxiu XML creat!!");
+        JOptionPane.showMessageDialog(null, "Copia de seguretat en format XML creada.");
 
 		  } catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
