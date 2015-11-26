@@ -36,7 +36,7 @@ public static void xml() {
 			Element rootElement = doc.createElement("Parking");
 			doc.appendChild(rootElement);
 			
-			for (int i = 0; i < Principal.arrayParking.size(); i++) {
+			for (int i = 0; i < Array.arrayParking.size(); i++) {
 
 			// vehicle elements
 			Element vehicle = doc.createElement("Vehicle");
@@ -52,42 +52,42 @@ public static void xml() {
 
 			// nom elements
 			Element nom = doc.createElement("Nom");
-			nom.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getNom()));
+			nom.appendChild(doc.createTextNode(Array.arrayParking.get(i).getNom()));
 			vehicle.appendChild(nom);
 
 			// cogonom elements
 			Element cognom = doc.createElement("Cognom");
-			cognom.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getCognom()));
+			cognom.appendChild(doc.createTextNode(Array.arrayParking.get(i).getCognom()));
 			vehicle.appendChild(cognom);
 
 			// tipus elements
 			Element tipus = doc.createElement("TipusVehicle");
-			tipus.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getTipus()));
+			tipus.appendChild(doc.createTextNode(Array.arrayParking.get(i).getTipus()));
 			vehicle.appendChild(tipus);
 
 			// matricula elements
 			Element matricula = doc.createElement("Matrícula");
-			matricula.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getMatricula()));
+			matricula.appendChild(doc.createTextNode(Array.arrayParking.get(i).getMatricula()));
 			vehicle.appendChild(matricula);
 
 			// marca elements
 			Element marca = doc.createElement("Marca");
-			marca.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getMarca()));
+			marca.appendChild(doc.createTextNode(Array.arrayParking.get(i).getMarca()));
 			vehicle.appendChild(marca);
 
 			// model elements
 			Element model = doc.createElement("Model");
-			model.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getModel()));
+			model.appendChild(doc.createTextNode(Array.arrayParking.get(i).getModel()));
 			vehicle.appendChild(model);
 
 			// color elements
 			Element color = doc.createElement("Color");
-			color.appendChild(doc.createTextNode(Principal.arrayParking.get(i).getColor()));
+			color.appendChild(doc.createTextNode(Array.arrayParking.get(i).getColor()));
 			vehicle.appendChild(color);
 
 			// plaça elements
 			Element plasa = doc.createElement("Plaça");
-			plasa.appendChild(doc.createTextNode(Integer.toString(Principal.arrayParking.get(i).getPlasa())));
+			plasa.appendChild(doc.createTextNode(Integer.toString(Array.arrayParking.get(i).getPlasa())));
 			vehicle.appendChild(plasa);
 
 			}

@@ -1,6 +1,6 @@
 package classes;
 
-import static classes.Principal.arrayParking;
+import static classes.Array.arrayParking;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,11 +22,11 @@ public class InOut implements java.io.Serializable {
         if (arxiu.exists()){
             ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(arxiu));
             int i=0;
-            Principal.arrayParking.clear();
+            Array.arrayParking.clear();
             while(true)
             {
                 try{
-                    Principal.arrayParking.add((Vehicle)entrada.readObject());
+                    Array.arrayParking.add((Vehicle)entrada.readObject());
                     
                 }
                 catch(Exception ex){
@@ -49,13 +49,12 @@ public static void escriure(String s){
         try {
             surtida = new ObjectOutputStream(new FileOutputStream(arxiu));
         } catch (IOException ex) {
-            //JOptionPane.showInputDialog("Error al crear l'arxiu d'emmagatzematge.");
             JOptionPane.showMessageDialog(null, "Error al guardar l'arxiu   1");
         } 
-    for(int i=0;i<Principal.arrayParking.size();i++)
+    for(int i=0;i<Array.arrayParking.size();i++)
     {
         try {
-            surtida.writeObject(Principal.arrayParking.get(i));
+            surtida.writeObject(Array.arrayParking.get(i));
         } catch (IOException ex) {
             Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
             break;
@@ -66,9 +65,9 @@ public static void escriure(String s){
         surtida.close();
     } catch (IOException ex) {
       JOptionPane.showMessageDialog(null, "Error al tancar l'arxiu.");
-        //Logger.getLogger(InOut.class.getName()).log(Level.SEVERE, null, ex);
+
     }
-                JOptionPane.showMessageDialog(null, "Dades guardades correctament.");
+    JOptionPane.showMessageDialog(null, "Dades guardades correctament.");
 }
 
     
